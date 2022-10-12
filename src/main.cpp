@@ -7,15 +7,18 @@
 
 using namespace std;
 
+void exit_app_with_msg(string msg)
+{
+  cout << msg << endl;
+  exit(0);
+}
+
 // check if right files were given
 void check_input_files(int argc, char *argv[])
 {
   // check if two files were given
   if(argc != 3)
-  {
-    cout << "Invalid number of arguments were given. Exiting app..." << endl;
-    exit(0);
-  }
+    exit_app_with_msg("Invalid number of arguments were given. Exiting app...");
 
   // check if files with right extensions were given
   std::filesystem::path first_file(argv[1]);
@@ -27,39 +30,24 @@ void check_input_files(int argc, char *argv[])
   {
       first_file_ext = first_file.extension().string();
       if(first_file_ext != ".cmd" and first_file_ext != ".xml")
-      {
-        cout << "Invalid extension of first file. Exiting app..." << endl;
-        exit(0);
-      }
+        exit_app_with_msg("Invalid extension of first file. Exiting app...");
   }
   else
-  {
-    cout << "First file has no extension. Exiting app..." << endl;
-    exit(0);
-  }
+    exit_app_with_msg("First file has no extension. Exiting app...");
 
   if(second_file.has_extension())
   {
       second_file_ext = second_file.extension().string();
       if(second_file_ext != ".cmd" and second_file_ext != ".xml")
-      {
-        cout << "Invalid extension of second file. Exiting app..." << endl;
-        exit(0);
-      }
+        exit_app_with_msg("Invalid extension of second file. Exiting app...");
   }
   else
-  {
-    cout << "Second file has no extension. Exiting app..." << endl;
-    exit(0);
-  }
+    exit_app_with_msg("Second file has no extension. Exiting app...");
 
   cout << first_file_ext << " " << second_file_ext << endl;
 
   if(first_file_ext == second_file_ext)
-  {
-    cout << "Both files have the same extension. Exiting app..." << endl;
-    exit(0);
-  }
+    exit_app_with_msg("Both files have the same extension. Exiting app...");
 
   cout << "Both arguments are ok. Continue...";
 }
