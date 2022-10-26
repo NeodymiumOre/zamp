@@ -1,6 +1,6 @@
 make
-export LD_LIBRARY_PATH="./libs"; ./interp
-clear
+export LD_LIBRARY_PATH="./libs"
+# clear
 ./interp "$@"
 echo
 echo

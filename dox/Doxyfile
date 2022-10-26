@@ -1669,7 +1669,7 @@ GENERATE_LATEX         = NO
 
 LATEX_OUTPUT           = latex
 
-# The LATEX_CMD_NAME tag can be used to specify the LaTeX command name to be
+# The LATEX_lib_handler tag can be used to specify the LaTeX command name to be
 # invoked.
 #
 # Note that when enabling USE_PDFLATEX this option is only used for generating
@@ -1678,14 +1678,14 @@ LATEX_OUTPUT           = latex
 # The default file is: latex.
 # This tag requires that the tag GENERATE_LATEX is set to YES.
 
-LATEX_CMD_NAME         = latex
+LATEX_lib_handler         = latex
 
-# The MAKEINDEX_CMD_NAME tag can be used to specify the command name to generate
+# The MAKEINDEX_lib_handler tag can be used to specify the command name to generate
 # index for LaTeX.
 # The default file is: makeindex.
 # This tag requires that the tag GENERATE_LATEX is set to YES.
 
-MAKEINDEX_CMD_NAME     = makeindex
+MAKEINDEX_lib_handler     = makeindex
 
 # If the COMPACT_LATEX tag is set to YES, doxygen generates more compact LaTeX
 # documents. This may be useful for small projects and may help to save some

@@ -1,4 +1,4 @@
-__start__: obj __lines_for_space__ interp __plugin__
+__start__: obj interp __plugin__
 	export LD_LIBRARY_PATH="./libs"; ./interp
 
 obj:
@@ -22,10 +22,16 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o
-	g++ ${LDFLAGS} -o interp  obj/main.o -ldl
+interp: obj/LibInterface.o obj/Handlers.o obj/main.o
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/Handlers.o -ldl
 
-obj/main.o: src/main.cpp inc/Interp4Command.hh
+obj/Handlers.o: inc/Handlers.hpp src/Handlers.cpp
+	g++ -c ${CPPFLAGS} -o obj/Handlers.o src/Handlers.cpp
+
+obj/LibInterface.o: inc/LibInterface.hpp inc/Interp4Command.hh src/LibInterface.cpp inc/Handlers.hpp inc/MobileObj.hh
+	g++ -c ${CPPFLAGS} -o obj/LibInterface.o src/LibInterface.cpp
+
+obj/main.o: src/main.cpp inc/Interp4Command.hh inc/LibInterface.hpp inc/Handlers.hpp
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 clean:

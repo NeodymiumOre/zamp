@@ -35,7 +35,7 @@
    /*!
     * \brief Wyświetla nazwę polecenia.
     */
-   virtual const char* GetCmdName() const = 0;
+   virtual const char* Getcmd_name() const = 0;
    /*!
     * \brief Wykonuje polecenie oraz wizualizuje jego realizację.
     */

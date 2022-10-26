@@ -8,7 +8,7 @@ using std::endl;
 
 extern "C" {
  Interp4Command* CreateCmd(void);
-  const char* GetCmdName() { return "Move"; }
+  const char* Getcmd_name() { return "Move"; }
 }
 
 
@@ -40,16 +40,16 @@ void Interp4Move::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " " << _Speed_mmS  << " 10  2" << endl;
+  cout << Getcmd_name() << " " << _Speed_mmS  << " 10  2" << endl;
 }
 
 
 /*!
  *
  */
-const char* Interp4Move::GetCmdName() const
+const char* Interp4Move::Getcmd_name() const
 {
-  return ::GetCmdName();
+  return ::Getcmd_name();
 }
 
 
