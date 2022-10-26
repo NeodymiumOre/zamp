@@ -1,11 +1,11 @@
-#ifndef LIBINTERFACE
-#define LIBINTERFACE
+#ifndef LIBINTERFACE_HPP
+#define LIBINTERFACE_HPP
 
 #include <string>
 #include <dlfcn.h>
 #include <map>
 
-#include "Interp4Command.hh"
+#include "Interp4Command.hpp"
 #include "MobileObj.hh"
 
 enum RTLD_mode {lazy = RTLD_LAZY,\

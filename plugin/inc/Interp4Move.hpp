@@ -6,7 +6,7 @@
 # pragma implementation
 #endif
 
-#include "Interp4Command.hh"
+#include "Interp4Command.hpp"
 
 /*!
  * \file

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Interp4Move.hpp"
+#include "Interp4Set.hpp"
 #include "MobileObj.hh"
 
 using std::cout;
@@ -8,10 +8,8 @@ using std::endl;
 
 extern "C" {
  Interp4Command* CreateCmd(void);
-  const char* Getcmd_name() { return "Move"; }
+  const char* Getcmd_name() { return "Set"; }
 }
-
-
 
 
 /*!
@@ -21,21 +19,21 @@ extern "C" {
  */
 Interp4Command* CreateCmd(void)
 {
-  return Interp4Move::CreateCmd();
+  return Interp4Set::CreateCmd();
 }
 
 
 /*!
  *
  */
-Interp4Move::Interp4Move(): _Speed_mmS(0)
+Interp4Set::Interp4Set(): _Speed_mmS(0)
 {}
 
 
 /*!
  *
  */
-void Interp4Move::PrintCmd() const
+void Interp4Set::PrintCmd() const
 {
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
@@ -47,7 +45,7 @@ void Interp4Move::PrintCmd() const
 /*!
  *
  */
-const char* Interp4Move::Getcmd_name() const
+const char* Interp4Set::Getcmd_name() const
 {
   return ::Getcmd_name();
 }
@@ -56,7 +54,7 @@ const char* Interp4Move::Getcmd_name() const
 /*!
  *
  */
-bool Interp4Move::ExecCmd( MobileObj  *pMobObj,  int  Socket) const
+bool Interp4Set::ExecCmd( MobileObj  *pMobObj,  int  Socket) const
 {
   /*
    *  Tu trzeba napisać odpowiedni kod.
@@ -68,7 +66,7 @@ bool Interp4Move::ExecCmd( MobileObj  *pMobObj,  int  Socket) const
 /*!
  *
  */
-bool Interp4Move::ReadParams(std::istream& Strm_CmdsList)
+bool Interp4Set::ReadParams(std::istream& Strm_CmdsList)
 {
   /*
    *  Tu trzeba napisać odpowiedni kod.
@@ -80,16 +78,16 @@ bool Interp4Move::ReadParams(std::istream& Strm_CmdsList)
 /*!
  *
  */
-Interp4Command* Interp4Move::CreateCmd()
+Interp4Command* Interp4Set::CreateCmd()
 {
-  return new Interp4Move();
+  return new Interp4Set();
 }
 
 
 /*!
  *
  */
-void Interp4Move::PrintSyntax() const
+void Interp4Set::PrintSyntax() const
 {
   cout << "   Move  NazwaObiektu  Szybkosc[m/s]  DlugoscDrogi[m]" << endl;
 }

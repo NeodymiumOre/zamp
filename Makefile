@@ -1,5 +1,5 @@
 __start__: obj interp __plugin__
-	export LD_LIBRARY_PATH="./libs"; ./interp
+	export LD_LIBRARY_PATH="./libs"
 
 obj:
 	mkdir obj
@@ -28,10 +28,10 @@ interp: obj/LibInterface.o obj/Handlers.o obj/main.o
 obj/Handlers.o: inc/Handlers.hpp src/Handlers.cpp
 	g++ -c ${CPPFLAGS} -o obj/Handlers.o src/Handlers.cpp
 
-obj/LibInterface.o: inc/LibInterface.hpp inc/Interp4Command.hh src/LibInterface.cpp inc/Handlers.hpp inc/MobileObj.hh
+obj/LibInterface.o: inc/LibInterface.hpp inc/Interp4Command.hpp src/LibInterface.cpp inc/Handlers.hpp inc/MobileObj.hh
 	g++ -c ${CPPFLAGS} -o obj/LibInterface.o src/LibInterface.cpp
 
-obj/main.o: src/main.cpp inc/Interp4Command.hh inc/LibInterface.hpp inc/Handlers.hpp
+obj/main.o: src/main.cpp inc/Interp4Command.hpp inc/LibInterface.hpp inc/Handlers.hpp
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 clean:
