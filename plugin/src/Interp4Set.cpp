@@ -1,14 +1,14 @@
 #include <iostream>
 #include "Interp4Set.hpp"
-#include "MobileObj.hh"
+#include "MobileObj.hpp"
 
 using std::cout;
 using std::endl;
 
 
 extern "C" {
- Interp4Command* CreateCmd(void);
-  const char* Getcmd_name() { return "Set"; }
+ Interp4Command* create_cmd(void);
+  const char* get_cmd_name() { return "Set"; }
 }
 
 
@@ -17,9 +17,9 @@ extern "C" {
  *
  *
  */
-Interp4Command* CreateCmd(void)
+Interp4Command* create_cmd(void)
 {
-  return Interp4Set::CreateCmd();
+  return Interp4Set::create_cmd();
 }
 
 
@@ -38,16 +38,16 @@ void Interp4Set::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << Getcmd_name() << " " << _Speed_mmS  << " 10  2" << endl;
+  cout << get_cmd_name() << " " << _Speed_mmS  << " 10  2" << endl;
 }
 
 
 /*!
  *
  */
-const char* Interp4Set::Getcmd_name() const
+const char* Interp4Set::get_cmd_name() const
 {
-  return ::Getcmd_name();
+  return ::get_cmd_name();
 }
 
 
@@ -78,7 +78,7 @@ bool Interp4Set::ReadParams(std::istream& Strm_CmdsList)
 /*!
  *
  */
-Interp4Command* Interp4Set::CreateCmd()
+Interp4Command* Interp4Set::create_cmd()
 {
   return new Interp4Set();
 }

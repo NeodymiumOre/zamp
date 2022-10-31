@@ -1,14 +1,14 @@
 #include <iostream>
 #include "Interp4Pause.hpp"
-#include "MobileObj.hh"
+#include "MobileObj.hpp"
 
 using std::cout;
 using std::endl;
 
 
 extern "C" {
- Interp4Command* CreateCmd(void);
-  const char* Getcmd_name() { return "Pause"; }
+ Interp4Command* create_cmd(void);
+  const char* get_cmd_name() { return "Pause"; }
 }
 
 
@@ -19,9 +19,9 @@ extern "C" {
  *
  *
  */
-Interp4Command* CreateCmd(void)
+Interp4Command* create_cmd(void)
 {
-  return Interp4Pause::CreateCmd();
+  return Interp4Pause::create_cmd();
 }
 
 
@@ -40,16 +40,16 @@ void Interp4Pause::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << Getcmd_name() << " " << _Speed_mmS  << " 10  2" << endl;
+  cout << get_cmd_name() << " " << _Speed_mmS  << " 10  2" << endl;
 }
 
 
 /*!
  *
  */
-const char* Interp4Pause::Getcmd_name() const
+const char* Interp4Pause::get_cmd_name() const
 {
-  return ::Getcmd_name();
+  return ::get_cmd_name();
 }
 
 
@@ -80,7 +80,7 @@ bool Interp4Pause::ReadParams(std::istream& Strm_CmdsList)
 /*!
  *
  */
-Interp4Command* Interp4Pause::CreateCmd()
+Interp4Command* Interp4Pause::create_cmd()
 {
   return new Interp4Pause();
 }

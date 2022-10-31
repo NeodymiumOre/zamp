@@ -9,6 +9,16 @@ void exit_app_with_msg(std::string msg)
   exit(0);
 }
 
+void print(std::string text)
+{
+  std::cout << text;
+}
+
+void nprint(std::string text)
+{
+  std::cout << text << std::endl;
+}
+
 // check if right files were given
 void check_input_files(int argc, char *argv[])
 {
@@ -45,21 +55,33 @@ void check_input_files(int argc, char *argv[])
   if(first_file_ext == second_file_ext)
     exit_app_with_msg("Both files have the same extension. Exiting app...");
 
-  std::cout << "Both arguments are ok. Continue...";
+  std::cout << "Both arguments are ok. Continue..." << std::endl;
 }
 
-bool exec_preprocessor(const char *filename, std::istringstream &IStrm4Cmds)
+std::list<std::string> exec_preprocessor(const char *filename)
 {
   std::string command = "cpp -P ";
   char line[LINE_SIZE];
-  std::ostringstream OTmpStrm;
+  std::list<std::string> cmd_list;
 
   command += filename;
-  FILE* pProc = popen(command.c_str(), "r");
-  if(!pProc) return false;
-  while (fgets(line, LINE_SIZE, pProc))
-    OTmpStrm << line;
+  FILE* file = popen(command.c_str(), "r");
+  if(!file)
+    exit(0);
+  while (fgets(line, LINE_SIZE, file))
+    cmd_list.push_back(line);
 
-  IStrm4Cmds.str(OTmpStrm.str());
-  return pclose(pProc) == 0;
+  pclose(file);
+
+  return cmd_list;
+}
+
+std::list<Interp4Command> create_cmd_list(std::list<std::string> cmd_lines)
+{
+  for(auto line : cmd_lines)
+  {
+    if(line == "\n")
+      print("xd");
+    print(line);
+  }
 }

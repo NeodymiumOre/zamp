@@ -16,18 +16,21 @@ LibInterface::~LibInterface()
         dlclose(it->second);
 }
 
-void LibInterface::CreateCmd(const std::string &cmd_name)
+void LibInterface::create_cmd(const std::string &cmd_name)
 {
-    void *pFun = dlsym(_lib_handler[cmd_name], "CreateCmd");
+    void *pFun = dlsym(_lib_handler[cmd_name], "create_cmd");
     if (!pFun)
-        exit_app_with_msg("Function not found: CreateCmd");
+        exit_app_with_msg("Function not found: create_cmd");
 
-    _pCreateCmd = *reinterpret_cast<Interp4Command* (**)(void)>(&pFun);
-    _pCmd = _pCreateCmd();
-    _cmd_name = _pCmd->Getcmd_name();
+    // get reference to function create_cmd
+    _pcreate_cmd = *reinterpret_cast<Interp4Command* (**)(std::string)>(&pFun);
+    // call create_cmd and save its return to _pCmd
+    _pCmd = _pcreate_cmd("xd xd xd");
+    // get name of command from returned object _pCmd
+    _cmd_name = _pCmd->get_cmd_name();
 }
 
-std::string LibInterface::getcmd_name()
+std::string LibInterface::get_cmd_name()
 {
     return _cmd_name;
 }

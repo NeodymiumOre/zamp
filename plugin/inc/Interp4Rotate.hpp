@@ -43,7 +43,7 @@ class Interp4Rotate: public Interp4Command {
   /*!
    * \brief Wyświetla nazwę polecenia
    */
-  virtual const char* Getcmd_name() const;
+  virtual const char* get_cmd_name() const;
   /*!
    * \brief Wykonuje polecenie oraz wizualizuje jego realizację
    */
@@ -61,7 +61,7 @@ class Interp4Rotate: public Interp4Command {
    *
    *  Ta metoda nie musi być zdefiniowna w klasie bazowej.
    */
-  static Interp4Command* CreateCmd();
+  static Interp4Command* create_cmd();
  };
 
 #endif

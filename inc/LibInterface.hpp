@@ -6,7 +6,7 @@
 #include <map>
 
 #include "Interp4Command.hpp"
-#include "MobileObj.hh"
+#include "MobileObj.hpp"
 
 enum RTLD_mode {lazy = RTLD_LAZY,\
                 now = RTLD_NOW,\
@@ -17,16 +17,17 @@ enum RTLD_mode {lazy = RTLD_LAZY,\
 class LibInterface
 {
     private:
+        // 
         std::map<std::string, void*> _lib_handler;
         std::string _cmd_name;
-        Interp4Command *(*_pCreateCmd)(void);
+        Interp4Command *(*_pcreate_cmd)(std::string cmd);
         Interp4Command *_pCmd;
     public:
         LibInterface(const char *lib_name, RTLD_mode mode);
         ~LibInterface();
 
-        void CreateCmd(const std::string &cmd_name);
-        std::string getcmd_name();
+        void create_cmd(const std::string &cmd_name);
+        std::string get_cmd_name();
 
         const Interp4Command* getCmd() const;
 };

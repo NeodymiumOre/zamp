@@ -1,17 +1,26 @@
 #include <iostream>
+#include <sstream>
+
 #include "Interp4Move.hpp"
-#include "MobileObj.hh"
+#include "MobileObj.hpp"
+#include "Handlers.hpp"
 
 using std::cout;
 using std::endl;
 
 
 extern "C" {
- Interp4Command* CreateCmd(void);
-  const char* Getcmd_name() { return "Move"; }
+ Interp4Command* create_cmd(std::string cmd);
+  const char* get_cmd_name() { return "Move"; }
 }
 
-
+Interp4Move::Interp4Move(std::string cmd)
+{
+  std::istringstream ss(cmd);
+  std::string word;
+  while(ss >> word)
+    nprint(word);
+}
 
 
 /*!
@@ -19,9 +28,16 @@ extern "C" {
  *
  *
  */
-Interp4Command* CreateCmd(void)
+Interp4Command* create_cmd(std::string cmd)
 {
-  return Interp4Move::CreateCmd();
+  // std::istringstream ss(cmd);
+  // std::string word;
+  // while(ss >> word)
+  //   nprint(word);
+  // nprint("xd");
+
+  // return Interp4Move::create_cmd();
+  return Interp4Move::create_cmd(cmd);
 }
 
 
@@ -40,16 +56,16 @@ void Interp4Move::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << Getcmd_name() << " " << _Speed_mmS  << " 10  2" << endl;
+  cout << get_cmd_name() << " " << _Speed_mmS  << " 10  2" << endl;
 }
 
 
 /*!
  *
  */
-const char* Interp4Move::Getcmd_name() const
+const char* Interp4Move::get_cmd_name() const
 {
-  return ::Getcmd_name();
+  return ::get_cmd_name();
 }
 
 
@@ -80,8 +96,9 @@ bool Interp4Move::ReadParams(std::istream& Strm_CmdsList)
 /*!
  *
  */
-Interp4Command* Interp4Move::CreateCmd()
+Interp4Command* Interp4Move::create_cmd(std::string cmd)
 {
+  std::cout << "xd" << std::endl;
   return new Interp4Move();
 }
 

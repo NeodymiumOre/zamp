@@ -1,8 +1,8 @@
-#ifndef  INTERP4COMMAND_HH
-#define  INTERP4COMMAND_HH
+#ifndef  INTERP4COMMAND_HHP
+#define  INTERP4COMMAND_HHP
 
 #include <iostream>
-#include "MobileObj.hh"
+#include "MobileObj.hpp"
 
 /*!
  * \file
@@ -35,7 +35,7 @@
    /*!
     * \brief Wyświetla nazwę polecenia.
     */
-   virtual const char* Getcmd_name() const = 0;
+   virtual const char* get_cmd_name() const = 0;
    /*!
     * \brief Wykonuje polecenie oraz wizualizuje jego realizację.
     */
