@@ -22,14 +22,20 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/LibInterface.o obj/Handlers.o obj/main.o
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/Handlers.o -ldl
+interp: obj/LibInterface.o obj/Handlers.o obj/main.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/Handlers.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o -ldl
 
 obj/Handlers.o: inc/Handlers.hpp src/Handlers.cpp
 	g++ -c ${CPPFLAGS} -o obj/Handlers.o src/Handlers.cpp
 
 obj/LibInterface.o: inc/LibInterface.hpp inc/Interp4Command.hpp src/LibInterface.cpp inc/Handlers.hpp inc/MobileObj.hpp
 	g++ -c ${CPPFLAGS} -o obj/LibInterface.o src/LibInterface.cpp
+
+obj/ProgramInterpreter.o: inc/ProgramInterpreter.hpp src/ProgramInterpreter.cpp
+	g++ -c ${CPPFLAGS} -o obj/ProgramInterpreter.o src/ProgramInterpreter.cpp
+
+obj/Set4LibInterfaces.o: inc/Set4LibInterfaces.hpp src/Set4LibInterfaces.cpp
+	g++ -c ${CPPFLAGS} -o obj/Set4LibInterfaces.o src/Set4LibInterfaces.cpp
 
 obj/main.o: src/main.cpp inc/Interp4Command.hpp inc/LibInterface.hpp inc/Handlers.hpp
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp

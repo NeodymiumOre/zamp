@@ -1,5 +1,5 @@
-__start__: obj ../libs/Interp4Move.so ../libs/Interp4Set.so\
-	../libs/Interp4Rotate.so ../libs/Interp4Pause.so
+__start__: obj ../libs/libInterp4Move.so ../libs/libInterp4Set.so\
+	../libs/libInterp4Rotate.so ../libs/libInterp4Pause.so
 	@echo "Tworzenie wtyczek zakonczone"
 
 obj:
@@ -15,20 +15,20 @@ __lines_for_space__:
 	@echo
 	@echo
 
-../libs/Interp4Move.so: obj/Interp4Move.o
-	g++ ${LDFLAGS} -o ../libs/Interp4Move.so obj/Interp4Move.o
+../libs/libInterp4Move.so: obj/Interp4Move.o
+	g++ ${LDFLAGS} -o ../libs/libInterp4Move.so obj/Interp4Move.o
 	@echo "Wtyczka dla polecenia 'Move' zostala utworzona"
 
-../libs/Interp4Set.so: obj/Interp4Set.o
-	g++ ${LDFLAGS} -o ../libs/Interp4Set.so obj/Interp4Set.o
+../libs/libInterp4Set.so: obj/Interp4Set.o
+	g++ ${LDFLAGS} -o ../libs/libInterp4Set.so obj/Interp4Set.o
 	@echo "Wtyczka dla polecenia 'Set' zostala utworzona"
 
-../libs/Interp4Rotate.so: obj/Interp4Rotate.o
-	g++ ${LDFLAGS} -o ../libs/Interp4Rotate.so obj/Interp4Rotate.o
+../libs/libInterp4Rotate.so: obj/Interp4Rotate.o
+	g++ ${LDFLAGS} -o ../libs/libInterp4Rotate.so obj/Interp4Rotate.o
 	@echo "Wtyczka dla polecenia 'Rotate' zostala utworzona"
 
-../libs/Interp4Pause.so: obj/Interp4Pause.o
-	g++ ${LDFLAGS} -o ../libs/Interp4Pause.so obj/Interp4Pause.o
+../libs/libInterp4Pause.so: obj/Interp4Pause.o
+	g++ ${LDFLAGS} -o ../libs/libInterp4Pause.so obj/Interp4Pause.o
 	@echo "Wtyczka dla polecenia 'Pause' zostala utworzona"
 
 obj/Interp4Move.o: src/Interp4Move.cpp ../inc/Interp4Command.hpp\
