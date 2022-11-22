@@ -1,7 +1,7 @@
 #ifndef VECTOR3D_HH
 #define VECTOR3D_HH
 
-#include "geomVector.hh"
+#include "geomVector.hpp"
 
 /*!
  * \file

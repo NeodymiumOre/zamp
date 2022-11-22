@@ -3,7 +3,7 @@
 
 
 #include <string>
-#include "Vector3D.hh"
+#include "Vector3D.hpp"
 
 
 /*!

@@ -1,5 +1,7 @@
-__start__: obj interp __plugin__
+# __start__: obj interp __plugin__
+__start__: obj xmlinterp4config
 	export LD_LIBRARY_PATH="./libs"
+	./xmlinterp4config
 
 obj:
 	mkdir obj
@@ -19,8 +21,9 @@ __plugin__:
 CPPFLAGS=-Wall -pedantic -std=c++17 -Iinc
 LDFLAGS=-Wall
 
-
-
+xmlinterp4config: obj/LibInterface.o obj/Handlers.o obj/main.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o obj/xmlinterp.o
+	g++ ${LDFLAGS} -o xmlinterp4config  obj/main.o obj/LibInterface.o obj/Handlers.o obj/Set4LibInterfaces.o\
+	 obj/ProgramInterpreter.o obj/xmlinterp.o -lxerces-c
 
 interp: obj/LibInterface.o obj/Handlers.o obj/main.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o
 	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/Handlers.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o -ldl
@@ -36,6 +39,9 @@ obj/ProgramInterpreter.o: inc/ProgramInterpreter.hpp src/ProgramInterpreter.cpp
 
 obj/Set4LibInterfaces.o: inc/Set4LibInterfaces.hpp src/Set4LibInterfaces.cpp
 	g++ -c ${CPPFLAGS} -o obj/Set4LibInterfaces.o src/Set4LibInterfaces.cpp
+
+obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hpp
+	g++ -c ${CPPFLAGS} -o obj/xmlinterp.o src/xmlinterp.cpp
 
 obj/main.o: src/main.cpp inc/Interp4Command.hpp inc/LibInterface.hpp inc/Handlers.hpp
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp

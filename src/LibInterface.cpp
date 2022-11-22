@@ -4,28 +4,27 @@
 // loading library with given name
 LibInterface::LibInterface(const char *lib_name, RTLD_mode mode)
 {
-    void *lib_handler = dlopen(lib_name, mode);
-    _lib_handler[lib_name] = lib_handler;
-    if (!_lib_handler[lib_name])
-        exit_app_with_msg("Library not found: " + *lib_name);
+    // _lib_handler = dlopen(lib_name, mode);
+    _lib_handler = dlopen(lib_name, mode);
+    if(!_lib_handler)
+        exit_app_with_msg("Library not found: " + std::string(lib_name));
 }
 
 LibInterface::~LibInterface()
 {
-    for (auto it = _lib_handler.begin(); it != _lib_handler.end(); ++it)
-        dlclose(it->second);
+    dlclose(_lib_handler);
 }
 
 void LibInterface::create_cmd(const std::string &cmd_name)
 {
-    void *pFun = dlsym(_lib_handler[cmd_name], "create_cmd");
+    void *pFun = dlsym(_lib_handler, "create_cmd");
     if (!pFun)
         exit_app_with_msg("Function not found: create_cmd");
 
     // get reference to function create_cmd
-    _pcreate_cmd = *reinterpret_cast<Interp4Command* (**)(std::string)>(&pFun);
+    _pcreate_cmd = *reinterpret_cast<Interp4Command* (**)(void)>(&pFun);
     // call create_cmd and save its return to _pCmd
-    _pCmd = _pcreate_cmd("xd xd xd");
+    _pCmd = _pcreate_cmd();
     // get name of command from returned object _pCmd
     _cmd_name = _pCmd->get_cmd_name();
 }

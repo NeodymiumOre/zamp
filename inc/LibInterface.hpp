@@ -17,10 +17,10 @@ enum RTLD_mode {lazy = RTLD_LAZY,\
 class LibInterface
 {
     private:
-        // 
-        std::map<std::string, void*> _lib_handler;
+        // std::map<std::string, void*> _lib_handler;
+        void *_lib_handler;
         std::string _cmd_name;
-        Interp4Command *(*_pcreate_cmd)(std::string cmd);
+        Interp4Command *(*_pcreate_cmd)();
         Interp4Command *_pCmd;
     public:
         LibInterface(const char *lib_name, RTLD_mode mode);
