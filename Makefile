@@ -1,7 +1,7 @@
 # __start__: obj interp __plugin__
 __start__: obj xmlinterp4config
 	export LD_LIBRARY_PATH="./libs"
-	./xmlinterp4config
+	# ./xmlinterp4config
 
 obj:
 	mkdir obj
