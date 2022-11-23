@@ -1,5 +1,5 @@
-#ifndef GEOMVECTOR_HH
-#define GEOMVECTOR_HH
+#ifndef GEOMVECTOR_HPP
+#define GEOMVECTOR_HPP
 
 /*!
  * \file
@@ -417,21 +417,62 @@ namespace geom {
  * \brief Wypisuje współrzędne wektora do tekstowego strumienia wyjściowego.
  *
  *  Wypisuje współrzędne wektora do tekstowego strumienia wyjściowego.
- *  \param OStrm - strumień wyjściowy, do którego wpisywane są współrzędne wektora,
+ *  \param rOStrm - strumień wyjściowy, do którego wpisywane są współrzędne wektora,
  *  \param V - wektor, ktorego współrzędne mają zostać wypisane.
  */
 template<typename Type, unsigned int Size>
 inline
-std::ostream & operator << ( std::ostream &OStrm, const geom::Vector<Type,Size> &V)
+std::ostream & operator << ( std::ostream &rOStrm, const geom::Vector<Type,Size> &V)
 {
-  OStrm << "(" << V[0];
+   rOStrm << "(" << V[0];
    for (unsigned int Ind = 1; Ind < Size; ++Ind) {
-     OStrm << ", " << V[Ind];
+     rOStrm << ", " << V[Ind];
    }
-   OStrm << ")";
-   return OStrm;
+   rOStrm << ")";
+   return rOStrm;
 }
 
+
+
+
+/*!
+ * \brief Wczutuje współrzędne wektora do tekstowego strumienia wyjściowego.
+ *
+ *  Wypisuje współrzędne wektora do tekstowego strumienia wyjściowego.
+ *  \param rIStrm - strumień wejściowy, z którego czytane są współrzędne wektora,
+ *  \param V - wektor, ktorego współrzędne mają zostać wczytane.
+ *  \return Srumień, który jest parametrem wywołania.
+ */
+template<typename Type, unsigned int Size>
+inline
+std::istream & operator >> ( std::istream &rIStrm, geom::Vector<Type,Size> &V)
+{
+  char Ch = 'x';
+
+  rIStrm >> Ch;
+  if (Ch != '(') { rIStrm.setstate(std::ios::failbit); return rIStrm; }
+  Ch = ',';
+  for (unsigned int Ind = 0; Ind < Size; ++Ind) {
+    if (Ch != ',') { rIStrm.setstate(std::ios::failbit); return rIStrm; }
+    rIStrm >> V[Ind] >> Ch;
+  }
+  if (Ch != ')') { rIStrm.setstate(std::ios::failbit); }
+  return rIStrm;
+}
+
+
+/*
+template<typename Type, unsigned int Size>
+inline
+std::istream & operator >> ( std::istream &IStrm, geom::Vector<Type,Size> &V)
+{
+   
+   for (unsigned int Ind = 0; Ind < Size; ++Ind) {
+     IStrm >> V[Ind];
+   }
+   return IStrm;
+}
+*/
 
 
 #endif

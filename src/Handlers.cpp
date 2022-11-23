@@ -3,6 +3,8 @@
 #include <string>
 #include "Handlers.hpp"
 
+#define XD std::cout << "XD" << std::endl;
+
 void exit_app_with_msg(std::string msg)
 {
   std::cout << msg << std::endl;

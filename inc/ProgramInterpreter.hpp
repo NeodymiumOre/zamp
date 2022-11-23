@@ -31,6 +31,7 @@ class ProgramInterpreter
         string cmdfile;
         string xmlfile;
         string xsdfile;
+        int socket2serv;
 
         ProgramInterpreter() {};
         ~ProgramInterpreter() {};
@@ -38,6 +39,7 @@ class ProgramInterpreter
         void loadLibraries();
         void printLoadedLibs();
         bool read_xml_file(string xmlfile);
+        bool open_connection(int &socket_nr);
 
 
 };

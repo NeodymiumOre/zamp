@@ -58,7 +58,7 @@ bool ProgramInterpreter::read_xml_file(string xmlfile)
         parser->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, true);
         parser->parse(xmlfile.c_str());
     }
-    catch (const SAXParseException &Exception)
+    catch (const XMLException& Exception)
     {
         char *msg = XMLString::transcode(Exception.getMessage());
         cerr << msg << endl;
@@ -88,4 +88,31 @@ bool ProgramInterpreter::read_xml_file(string xmlfile)
     delete parser;
     delete handler;
     return true;
+}
+
+bool ProgramInterpreter::open_connection(int &socket_nr)
+{
+  struct sockaddr_in ServerAddrData;
+
+  bzero((char *)&ServerAddrData, sizeof(ServerAddrData));
+
+  ServerAddrData.sin_family = AF_INET;
+  ServerAddrData.sin_addr.s_addr = inet_addr("127.0.0.1");
+  ServerAddrData.sin_port = htons(PORT);
+
+  socket_nr = socket(AF_INET, SOCK_STREAM, 0);
+
+  if(socket_nr < 0)
+  {
+    cerr << "Socket opening error" << endl;
+    return false;
+  }
+  
+  if(connect(socket_nr, (struct sockaddr*)&ServerAddrData, sizeof(ServerAddrData)) < 0)
+  {
+    cerr << "Port connection error" << endl;
+    return false;
+  }
+
+  return true;
 }

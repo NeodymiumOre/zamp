@@ -1,10 +1,18 @@
 #include <string>
 #include <cstdio>
 #include <list>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <thread>
+#include <mutex>
 
 #include "Interp4Command.hpp"
 
 #define LINE_SIZE 500
+#define PORT 6217
 
 void exit_app_with_msg(std::string msg);
 
