@@ -15,6 +15,9 @@
 #include "Interp4Command.hpp"
 #include "Configuration.hpp"
 #include "Handlers.hpp"
+#include "Sender.hpp"
+
+#define STATES_NUMBER 8
 
 using std::cout;
 using std::endl;
@@ -32,6 +35,7 @@ class ProgramInterpreter
         string xmlfile;
         string xsdfile;
         int socket2serv;
+        Sender _Sender;
 
         ProgramInterpreter() {};
         ~ProgramInterpreter() {};
@@ -40,6 +44,9 @@ class ProgramInterpreter
         void printLoadedLibs();
         bool read_xml_file(string xmlfile);
         bool open_connection(int &socket_nr);
+        int send(int Sk2Server, const char *msg);
+
+        
 
 
 };

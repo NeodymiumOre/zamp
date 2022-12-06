@@ -116,3 +116,18 @@ bool ProgramInterpreter::open_connection(int &socket_nr)
 
   return true;
 }
+
+int ProgramInterpreter::send(int Sk2Server, const char *sMesg)
+{
+  ssize_t  IlWyslanych;
+  ssize_t  IlDoWyslania = (ssize_t) strlen(sMesg);
+
+  while ((IlWyslanych = write(Sk2Server,sMesg,IlDoWyslania)) > 0) {
+    IlDoWyslania -= IlWyslanych;
+    sMesg += IlWyslanych;
+  }
+  if (IlWyslanych < 0) {
+    cerr << "*** Blad przeslania napisu." << endl;
+  }
+  return 0;
+}
