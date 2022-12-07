@@ -21,15 +21,15 @@ __plugin__:
 CPPFLAGS=-Wall -pedantic -std=c++17 -Iinc
 LDFLAGS=-Wall
 
-xmlinterp4config: obj/LibInterface.o obj/Handlers.o obj/main.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o obj/xmlinterp.o obj/Sender.o
+xmlinterp4config: obj/LibInterface.o obj/Handlers.o obj/main.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o obj/xmlinterp.o
 	g++ ${LDFLAGS} -o xmlinterp4config  obj/main.o obj/LibInterface.o obj/Handlers.o obj/Set4LibInterfaces.o\
-	 obj/ProgramInterpreter.o obj/xmlinterp.o obj/Sender.o -lxerces-c
+	 obj/ProgramInterpreter.o obj/xmlinterp.o -lxerces-c
 
 # interp: obj/LibInterface.o obj/Handlers.o obj/main.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o
 # 	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/Handlers.o obj/Set4LibInterfaces.o obj/ProgramInterpreter.o -ldl
 
-obj/Sender.o: inc/Sender.hpp src/Sender.cpp
-	g++ -c ${CPPFLAGS} -o obj/Sender.o src/Sender.cpp
+# obj/Sender.o: inc/Sender.hpp src/Sender.cpp
+# 	g++ -c ${CPPFLAGS} -o obj/Sender.o src/Sender.cpp
 
 obj/Handlers.o: inc/Handlers.hpp src/Handlers.cpp
 	g++ -c ${CPPFLAGS} -o obj/Handlers.o src/Handlers.cpp

@@ -15,7 +15,7 @@
 #include "Interp4Command.hpp"
 #include "Configuration.hpp"
 #include "Handlers.hpp"
-#include "Sender.hpp"
+// #include "Sender.hpp"
 
 #define STATES_NUMBER 8
 
@@ -35,7 +35,7 @@ class ProgramInterpreter
         string xmlfile;
         string xsdfile;
         int socket2serv;
-        Sender _Sender;
+        // Sender _Sender;
 
         ProgramInterpreter() {};
         ~ProgramInterpreter() {};

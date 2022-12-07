@@ -14,6 +14,7 @@
 #include <vector>
 // #include "AccessControl.hh"
 // #include "Port.hh"
+#include "Scene.hpp"
 
 class Sender {
     public:
