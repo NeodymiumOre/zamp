@@ -131,3 +131,54 @@ int ProgramInterpreter::send(int Sk2Server, const char *sMesg)
   }
   return 0;
 }
+
+bool ProgramInterpreter::exec_program(const char *filename)
+{
+  std::string command = "cpp -P ";
+  char line[LINE_SIZE];
+  ostringstream ostr;
+  istringstream istr;
+
+  command += filename;
+  FILE* file = popen(command.c_str(), "r");
+  if(!file)
+    exit(0);
+  while (fgets(line, LINE_SIZE, file))
+    ostr >> line;
+
+  pclose(file);
+
+  istr.str(ostr.str());
+  queue<Interp4Command*> cmd;
+  queue<std::thread> thread_set;
+  string name;
+  while(!istr.eof())
+  {
+    istr >> name;
+
+    if(name == "Begin_Parallel_Actions") {}
+    else if (name == "End_Parallel_Actions")
+    {
+      while(!cmd.empty())
+      {
+        thread_set.push(thread(&Interp4Command::ExecCmd, cmd.front(),&_Scene, &socket2serv));
+        cmd.pop();
+      }
+      while(!thread_set.empty())
+      {
+        thread_set.front.join();
+        thread_set.pop();
+      }
+    }
+    else if(name == "Move" || name == "Rotate" || name == "Set" || name == "Pause")
+    {
+      cmd.push(_LibSet[name]->GetCmd());
+      cmd.back()->ReadParams(istr);
+    }
+    return 1;
+  }
+
+
+
+  return cmd_list;
+}

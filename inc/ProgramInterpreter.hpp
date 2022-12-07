@@ -24,20 +24,18 @@ using std::endl;
 using std::string;
 
 class ProgramInterpreter
-{
-    private:
-        Scene _Scene;
-        Set4LibInterfaces _LibSet;
-        Configuration _Config;
-    
+{    
     public:
         string cmdfile;
         string xmlfile;
         string xsdfile;
         int socket2serv;
+        Scene _Scene;
+        Set4LibInterfaces _LibSet;
+        Configuration Config;
         // Sender _Sender;
 
-        ProgramInterpreter() {};
+        ProgramInterpreter() {Config = new Configuration;};
         ~ProgramInterpreter() {};
 
         void loadLibraries();
@@ -45,6 +43,8 @@ class ProgramInterpreter
         bool read_xml_file(string xmlfile);
         bool open_connection(int &socket_nr);
         int send(int Sk2Server, const char *msg);
+        bool exec_program(const char *filename);
+        bool send_scene_state_2_server();
 
         
 
