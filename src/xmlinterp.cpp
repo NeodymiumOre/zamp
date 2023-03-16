@@ -14,8 +14,9 @@ using namespace std;
  * Konstruktor klasy. Tutaj należy zainicjalizować wszystkie
  * dodatkowe pola.
  */
-XMLInterp4Config::XMLInterp4Config(Configuration &rConfig)
+XMLInterp4Config::XMLInterp4Config(Configuration *rConfig)
 {
+  _Config = rConfig;
 }
 
 

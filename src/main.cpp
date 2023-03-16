@@ -9,6 +9,7 @@
 #include "LibInterface.hpp"
 #include "Handlers.hpp"
 #include "ProgramInterpreter.hpp"
+#include "Scene.hpp"
 
 using namespace std;
 
@@ -68,9 +69,20 @@ int main(int argc, char *argv[])
   interpreter.xsdfile = "config/config.xsd";
   if(!interpreter.read_xml_file(interpreter.xmlfile));
 
-  if(!interpreter.open_connection(interpreter.socket2serv))
+  int socket;
+  if(!interpreter.open_connection(socket))
     exit_app_with_msg("Establishing connection to graphical server failed");
   else
     nprint("Successfuly connected to graphical server");
+  interpreter.socket2serv.SetSocket(socket);
+
+  for(unsigned long int i=0; i < interpreter.Config->GetVectorOfLibs().size(); ++i)
+    interpreter._LibSet.addLibInterface(interpreter.Config->GetVectorOfLibs()[i]);
+
+  interpreter._Scene.add_mobile_obj(interpreter.Config);
+
+  interpreter.send(interpreter.socket2serv.GetSocket(), "Clear\n");
+
+  interpreter.send_scene_state_2_server();
 
 }

@@ -3,6 +3,15 @@
 
 #include <vector>
 #include <sstream>
+#include <list>
+#include <thread>
+#include <queue>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <sstream>
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
@@ -15,13 +24,12 @@
 #include "Interp4Command.hpp"
 #include "Configuration.hpp"
 #include "Handlers.hpp"
+#include "GuardedSocket.hpp"
 // #include "Sender.hpp"
 
 #define STATES_NUMBER 8
 
-using std::cout;
-using std::endl;
-using std::string;
+using namespace std;
 
 class ProgramInterpreter
 {    
@@ -29,13 +37,13 @@ class ProgramInterpreter
         string cmdfile;
         string xmlfile;
         string xsdfile;
-        int socket2serv;
+        GuardedSocket socket2serv;
         Scene _Scene;
         Set4LibInterfaces _LibSet;
-        Configuration Config;
+        Configuration *Config;
         // Sender _Sender;
 
-        ProgramInterpreter() {Config = new Configuration;};
+        ProgramInterpreter() {Config = new Configuration;}
         ~ProgramInterpreter() {};
 
         void loadLibraries();

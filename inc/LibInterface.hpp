@@ -29,7 +29,7 @@ class LibInterface
         void create_cmd(const std::string &cmd_name);
         std::string get_cmd_name();
 
-        const Interp4Command* getCmd() const;
+        Interp4Command* getCmd() const;
 };
 
 

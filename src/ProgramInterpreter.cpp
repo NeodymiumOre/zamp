@@ -5,6 +5,7 @@ using std::cerr;
 using std::endl;
 using std::string;
 using namespace xercesc;
+using namespace std;
 
 void ProgramInterpreter::loadLibraries()
 {
@@ -46,7 +47,7 @@ bool ProgramInterpreter::read_xml_file(string xmlfile)
     parser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
     parser->setFeature(XMLUni::fgXercesValidationErrorAsFatal, true);
 
-    DefaultHandler *handler = new XMLInterp4Config(_Config);
+    DefaultHandler *handler = new XMLInterp4Config(Config);
     parser->setContentHandler(handler);
     parser->setErrorHandler(handler);
 
@@ -144,41 +145,54 @@ bool ProgramInterpreter::exec_program(const char *filename)
   if(!file)
     exit(0);
   while (fgets(line, LINE_SIZE, file))
-    ostr >> line;
+    ostr << line;
 
   pclose(file);
 
   istr.str(ostr.str());
   queue<Interp4Command*> cmd;
-  queue<std::thread> thread_set;
+  queue<thread> thread_set;
   string name;
   while(!istr.eof())
   {
     istr >> name;
 
-    if(name == "Begin_Parallel_Actions") {}
-    else if (name == "End_Parallel_Actions")
+    // if(name == "Begin_Parallel_Actions") {}
+    // else if (name == "End_Parallel_Actions")
+    // {
+    //   while(!cmd.empty())
+    //   {
+    //     thread_set.push(thread(&Interp4Command::ExecCmd, cmd.front(), &_Scene, &socket2serv));
+    //     cmd.pop();
+    //   }
+    //   while(!thread_set.empty())
+    //   {
+    //     thread_set.front().join();
+    //     thread_set.pop();
+    //   }
+    // }
+    // else 
+    if(name == "Move" || name == "Rotate" || name == "Set" || name == "Pause")
     {
-      while(!cmd.empty())
-      {
-        thread_set.push(thread(&Interp4Command::ExecCmd, cmd.front(),&_Scene, &socket2serv));
-        cmd.pop();
-      }
-      while(!thread_set.empty())
-      {
-        thread_set.front.join();
-        thread_set.pop();
-      }
-    }
-    else if(name == "Move" || name == "Rotate" || name == "Set" || name == "Pause")
-    {
-      cmd.push(_LibSet[name]->GetCmd());
+      cmd.push(_LibSet[name]->getCmd());
       cmd.back()->ReadParams(istr);
     }
-    return 1;
   }
+  return 1;
+}
 
-
-
-  return cmd_list;
+bool ProgramInterpreter::send_scene_state_2_server()
+{
+  for (int i = 0; i < Config->GetVectorOfObjData().size(); ++i){
+    stringstream Napis;
+    ObjData tmp = Config->GetVectorOfObjData()[i];
+    Napis << "AddObj Name=" << tmp.GetName() << " RGB="  << tmp.GetRGB() << "  Scale=" << tmp.GetScale() <<
+      " Shift=" << tmp.GetShift() << " RotXYZ_deg=" << tmp.GetRotXYZ() << " Trans_m=" << tmp.GetTrans() <<"\n";
+    
+    const string tmp2 = Napis.str();
+    const char *napis = tmp2.c_str();
+    send(socket2serv.GetSocket(),napis);      
+  }
+  
+  delete Config;
 }

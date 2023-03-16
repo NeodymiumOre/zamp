@@ -6,14 +6,17 @@
 
 #include "LibInterface.hpp"
 
+using namespace std;
+
 class Set4LibInterfaces
 {
     public:
-        std::map<std::string, std::shared_ptr<LibInterface>> LibsCollection;
+        map<string, shared_ptr<LibInterface>> LibsCollection;
 
         Set4LibInterfaces() {};
         ~Set4LibInterfaces() {};
-        void addLibInterface(std::string file);
+        void addLibInterface(string file);
+        shared_ptr<LibInterface> operator [] (string cmd);
 };
 
 #endif
